@@ -112,9 +112,16 @@ impl Repo {
     /// Lower sorts first in the report.
     pub fn severity(&self, now: i64, stale_days: u64) -> u8 {
         let flags = self.flags(now, stale_days);
-        for (rank, flag) in ["dirty", "unpushed", "local-only", "behind", "empty", "stale"]
-            .iter()
-            .enumerate()
+        for (rank, flag) in [
+            "dirty",
+            "unpushed",
+            "local-only",
+            "behind",
+            "empty",
+            "stale",
+        ]
+        .iter()
+        .enumerate()
         {
             if flags.contains(flag) {
                 return rank as u8;
@@ -145,8 +152,8 @@ pub fn probe(path: &Path, stale_days: u64, now: i64) -> Option<Repo> {
         .map(|o| o.lines().filter(|l| !l.trim().is_empty()).count())
         .unwrap_or(0);
 
-    let last_commit_ts = git(path, &["log", "-1", "--format=%ct"])
-        .and_then(|o| o.trim().parse::<i64>().ok());
+    let last_commit_ts =
+        git(path, &["log", "-1", "--format=%ct"]).and_then(|o| o.trim().parse::<i64>().ok());
 
     let branch = status.branch.clone();
     let cutoff = now - (stale_days as i64 * 86_400);

@@ -90,17 +90,10 @@ pub fn table(repos: &[Repo], root: &str, now: i64, stale_days: u64, color: bool)
         }
     };
 
-    let flag_list: Vec<Vec<&'static str>> = repos
-        .iter()
-        .map(|r| r.flags(now, stale_days))
-        .collect();
+    let flag_list: Vec<Vec<&'static str>> =
+        repos.iter().map(|r| r.flags(now, stale_days)).collect();
 
-    let w_name = repos
-        .iter()
-        .map(|r| r.name.len())
-        .max()
-        .unwrap_or(4)
-        .max(4);
+    let w_name = repos.iter().map(|r| r.name.len()).max().unwrap_or(4).max(4);
     let w_branch = repos
         .iter()
         .map(|r| r.branch.len())

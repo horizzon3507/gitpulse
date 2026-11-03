@@ -71,7 +71,12 @@ fn main() {
     paths.dedup();
 
     let mut repos = probe_all(paths, args.stale_days, now);
-    repos.sort_by_key(|r| (r.severity(now, args.stale_days), std::cmp::Reverse(r.dirty_count())));
+    repos.sort_by_key(|r| {
+        (
+            r.severity(now, args.stale_days),
+            std::cmp::Reverse(r.dirty_count()),
+        )
+    });
     if !args.all {
         repos.retain(|r| r.severity(now, args.stale_days) < 6);
     }
@@ -92,7 +97,13 @@ fn main() {
     } else {
         print!(
             "{}",
-            render::table(&repos, &root_str, now, args.stale_days, args.color.enabled())
+            render::table(
+                &repos,
+                &root_str,
+                now,
+                args.stale_days,
+                args.color.enabled()
+            )
         );
     }
 }

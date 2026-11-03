@@ -82,7 +82,10 @@ fn reports_dirty_files() {
 
     let repo = root.join("dirty-repo");
     init_repo(&repo);
-    git(&repo, &["remote", "add", "origin", "https://example.com/x.git"]);
+    git(
+        &repo,
+        &["remote", "add", "origin", "https://example.com/x.git"],
+    );
     commit(&repo, "a.txt", "hi");
     std::fs::write(repo.join("b.txt"), "untracked").unwrap();
     std::fs::write(repo.join("a.txt"), "changed").unwrap();
@@ -102,10 +105,16 @@ fn all_flag_includes_clean_repos() {
 
     let repo = root.join("clean-repo");
     init_repo(&repo);
-    git(&repo, &["remote", "add", "origin", "https://example.com/x.git"]);
+    git(
+        &repo,
+        &["remote", "add", "origin", "https://example.com/x.git"],
+    );
     commit(&repo, "a.txt", "hi");
     // Fake the remote-tracking ref so `main` has an upstream and the repo is clean.
-    git(&repo, &["update-ref", "refs/remotes/origin/main", "refs/heads/main"]);
+    git(
+        &repo,
+        &["update-ref", "refs/remotes/origin/main", "refs/heads/main"],
+    );
     git(&repo, &["branch", "--set-upstream-to=origin/main", "main"]);
 
     let flagged = gitpulse(root, &[]);
