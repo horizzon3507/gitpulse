@@ -56,4 +56,4 @@ gitpulse is written in Rust, has no runtime service, and probes repos by calling
 
 ## License
 
-MIT
+Apache-2.0
