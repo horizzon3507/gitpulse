@@ -29,6 +29,12 @@ We only call something **stable** when we mean it.
 
 </details>
 
+## v0.1.2-stable · 04/11/2026
+
+Relicense. This version was made for CLI with a stable release channel on 04/11/2026 (v0.1.2-stable).
+
+- Relicense the project from MIT to Apache-2.0: new `LICENSE` text, `license` field in `Cargo.toml`, and the README license section updated.
+
 ## v0.1.1-stable · 03/11/2026
 
 Toolchain bump. This version was made for CLI with a stable release channel on 03/11/2026 (v0.1.1-stable).
